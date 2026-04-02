@@ -1,9 +1,7 @@
 import {createElement} from '../render.js';
-import {humanizeTaskDueDate, isTaskExpired} from '../utils.js';
 import {humanizeTaskDueDate, isTaskExpired, isTaskRepeating} from '../utils.js';
 
 function createTaskTemplate(task) {
-  const {color, description, dueDate} = task;
   const {color, description, dueDate, repeating, isArchive, isFavorite} = task;
 
   const date = humanizeTaskDueDate(dueDate);
@@ -25,7 +23,6 @@ function createTaskTemplate(task) {
     : 'card__btn--favorites';
 
   return (
-    `<article class="card card--${color} ${deadlineClassName}">
     `<article class="card card--${color} ${deadlineClassName} ${repeatClassName}">
       <div class="card__form">
         <div class="card__inner">
@@ -33,13 +30,11 @@ function createTaskTemplate(task) {
             <button type="button" class="card__btn card__btn--edit">
               edit
             </button>
-            <button type="button" class="card__btn card__btn--archive">
             <button type="button" class="card__btn ${archiveClassName}">
               archive
             </button>
             <button
               type="button"
-              class="card__btn card__btn--favorites"
               class="card__btn ${favoriteClassName}"
             >
               favorites
